@@ -168,7 +168,20 @@ public class MenuController implements Initializable {
 	// Event Listener on Button[#btn_nueva_reserva].onAction
 	@FXML
 	public void btn_nueva_reserva_a(ActionEvent event) {
-
+		
+		validarReservas();
+		if (errores.size() > 0) {
+			String cadenaErrores = "";
+			for (int i = 0; i < errores.size(); i++) {
+				cadenaErrores += errores.get(i) + "\n";
+			}
+			Alert mensaje = new Alert(AlertType.ERROR);
+			mensaje.setTitle("Error");
+			mensaje.setHeaderText("Se encontraron los siguientes errores:");
+			mensaje.setContentText(cadenaErrores);
+			mensaje.show();
+			return;
+		}
 		reservasList.add(new Reserva(Integer.parseInt(txf_idreserva.getText()),
 				new Laboratorio(cmb_laboratorio.getSelectionModel().getSelectedItem(), 10, 20),
 				new Usuario("admin", 12345, "admin@universidad.edu"),
